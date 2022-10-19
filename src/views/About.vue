@@ -1,78 +1,12 @@
 <template>
-  <div class="container">
-    <Navbar/>
-      <!-- ////////// formulario Añadir ////////// -->
-    <!-- Nombre -->
-  <div class="container my-4">
-  <form>  
-    <div class="input-group mb-3">
-    <span class="input-group-text">Nombre</span>
-    <input v-model="usuario.nombre" type="text" class="form-control">
-    </div>
-    <!-- Correo -->
-    <div class="input-group mb-3">
-    <span class="input-group-text">Correo</span>
-    <input v-model="usuario.correo" type="text" class="form-control">
-    </div>
-    <div class="input-group my-3">
-      <input type="file" @change="buscarImagen($event)">
-    </div>
-
-      <div class="mt-3">  
-    <button v-show="this.editar === true" 
-      @click.prevent="actualizarDato(id)" 
-      class="btn btn-primary">
-      Actualizar
-    </button>
-    <button v-show="this.editar === false" 
-      @click.prevent="agregarDato()" 
-      class="btn btn-primary">
-      Guardar
-    </button>
-    <div class="mt-4">
-      <img :src="datoImagen">
-    </div>
-
-    </div>
-  </form>
-  </div>
-<!-- ////////// tabla ////////// -->
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">id</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Editar</th>
-        <th scope="col">Eliminar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(item, index) in usuarios" :key="index">
-        <th scope="row">{{index}}</th>
-        <td>{{item.nombre}}</td>
-        <td>{{item.correo}}</td> 
-        <td>
-          <button @click.prevent="obtenerDatoID( item.id );this.editar = !this.editar;" 
-            class="btn btn-primary">Editar
-          </button>
-        </td>
-
-        <td>
-          <button @click.prevent="eliminarDato(item.id)" 
-            class="btn btn-danger">Eliminar
-          </button>
-      </td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
+  <Navbar/>
   
+  <To_do/>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import to_do from '@/components/to_do.vue'
+import To_do from '../components/to_do.vue';
 import { collection, getDocs, addDoc, deleteDoc, doc, getDoc, updateDoc  } from 'firebase/firestore/lite';
 import { db, storage } from "../main";
 import firebase from 'firebase/compat/app';
@@ -81,7 +15,8 @@ import router from '../router/index'
 export default {
   name: 'About',
   components: {
-    Navbar
+    Navbar,
+    To_do,
   },
   data() {
     return {
